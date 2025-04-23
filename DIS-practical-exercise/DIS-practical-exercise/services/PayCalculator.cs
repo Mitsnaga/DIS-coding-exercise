@@ -69,7 +69,7 @@ namespace DIS_practical_exercise.services
                             break;
                     }
 
-                    finalPay += record.Hours * maxRate * payCodeRule;
+                    finalPay += (record.Hours * maxRate * payCodeRule) + record.Bonus;
 
                 }
 

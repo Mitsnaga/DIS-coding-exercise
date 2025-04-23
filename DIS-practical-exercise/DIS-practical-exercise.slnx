@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="DIS-practical-exercise/DIS-practical-exercise.csproj" />
+  <Project Path="DISPaySummary.Tests/DISPaySummary.Tests.csproj" />
 </Solution>
