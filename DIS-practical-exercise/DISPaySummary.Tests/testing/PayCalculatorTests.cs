@@ -8,8 +8,9 @@ namespace DISPaySummary.Tests
 {
     public class PayCalculatorTests
     {
+        // Normal scenario - One record of overtime and regular time
         [Fact]
-        public void SummarizePayInfo_ReturnsCorrectSummary_ForKyleJames()
+        public void SummarizePayInfo_CorrectSummary_KyleJames()
         {
             var timecards = new List<TimeCard>
             {
@@ -35,8 +36,9 @@ namespace DISPaySummary.Tests
             Assert.Equal(225.00m, overtime.Total_Pay_Amount);
         }
 
+        // Scenario where the effective rate is Higher
         [Fact]
-        public void SummarizePayInfo_UsesHigherRateBetweenJobAndEmployee()
+        public void SummarizePayInfo_HigherRate()
         {
             var timecards = new List<TimeCard>
             {
@@ -56,8 +58,9 @@ namespace DISPaySummary.Tests
             Assert.Equal(20.00m, summary.Rate_of_Pay);
         }
 
+        // Scenario where the employee has a bonus to be added to the final pay
         [Fact]
-        public void SummarizePayInfo_AddsBonusCorrectly()
+        public void SummarizePayInfo_AddBonus()
         {
             var timecards = new List<TimeCard>
             {
