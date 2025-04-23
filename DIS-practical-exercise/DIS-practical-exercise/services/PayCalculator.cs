@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
-using System.Threading.Tasks;
 using DIS_practical_exercise.models;
-using Microsoft.VisualBasic;
+using DIS_practical_exercise.helpers;
 
 namespace DIS_practical_exercise.services
 {
@@ -40,19 +35,7 @@ namespace DIS_practical_exercise.services
                     // calculating the total hours for each employee
                     totalHours += record.Hours;
 
-                    // Getting the latest hourly rate for each employee
-                    // Depending on the type of job, department and 
-                    // Checking if they fall into the effective time range
-                    var Rate = rateTable.Where(r =>
-                    r.Dept == record.Dept_Worked &&
-                    r.Job == record.Job_Worked &&
-                    r.Effective_End >= record.Date_Worked &&
-                    r.Effective_Start <= record.Date_Worked)
-                    .OrderByDescending(r => r.Effective_Start)
-                    .FirstOrDefault()?.Hourly_Rate ?? 0;
-
-                    // Checking which rate is higher (base or effective)
-                    decimal maxRate = Math.Max(record.Rate, Rate);
+                    decimal maxRate = PayHelper.GetMaxRate(record, rateTable);
 
                     // Converting the multiplyer wording in to numbers
                     decimal payCodeRule = 0;
@@ -69,7 +52,8 @@ namespace DIS_practical_exercise.services
                             break;
                     }
 
-                    finalPay += (record.Hours * maxRate * payCodeRule) + record.Bonus;
+                    decimal pay = PayHelper.CalculatePay(record.Hours, maxRate, payCodeRule, record.Bonus);
+                    finalPay += pay;
 
                 }
 
